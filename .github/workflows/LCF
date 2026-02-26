@@ -1,0 +1,45 @@
+"""Compute the lowest common factor of two integers.
+
+The lowest common factor (LCF) is defined here as the smallest integer > 1
+that divides both input numbers.  If no such factor exists the function returns
+1 (i.e. the numbers are coprime).
+"""
+
+def lowest_common_factor(a: int, b: int) -> int:
+    """Return the smallest factor > 1 common to both a and b.
+
+    Parameters
+    ----------
+    a : int
+    b : int
+
+    Returns
+    -------
+    int
+        The lowest common factor, or 1 if none exists.
+    """
+    if a <= 0 or b <= 0:
+        raise ValueError("Inputs must be positive integers")
+
+    # iterate through possible factors starting at 2
+    limit = min(a, b)
+    for f in range(2, limit + 1):
+        if a % f == 0 and b % f == 0:
+            return f
+    return 1
+
+
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Compute the lowest common factor of two positive integers")
+    parser.add_argument("a", type=int, help="First positive integer")
+    parser.add_argument("b", type=int, help="Second positive integer")
+
+    args = parser.parse_args()
+    try:
+        result = lowest_common_factor(args.a, args.b)
+    except ValueError as e:
+        print(f"Error: {e}")
+    else:
+        print(result)
